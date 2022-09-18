@@ -10,7 +10,6 @@ export class SocioDto {
     @IsNotEmpty()
     readonly correo: string;
 
-    @IsDate()
     @IsNotEmpty()
     readonly fechanacimiento: Date;
     

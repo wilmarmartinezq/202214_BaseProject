@@ -12,7 +12,7 @@ export class ClubSocioController {
     private readonly servicioSocio: SocioService,
   ) {}
 
-  @Post(':clubId/socios/:clubId')
+  @Post(':clubId/socios/:socioId')
   async agregarSocioClub(
     @Param('clubId') clubId: string,
     @Param('socioId') socioId: string,

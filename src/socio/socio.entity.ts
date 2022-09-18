@@ -18,7 +18,6 @@ export class SocioEntity {
   @Column()
   correo: string;
 
-
   @Column()
   fechanacimiento: string;
 
