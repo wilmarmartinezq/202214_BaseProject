@@ -1,0 +1,401 @@
+{
+	"info": {
+		"_postman_id": "314a4665-7549-4987-beb1-1ef8b4958afe",
+		"name": "Socio-Club",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15550887"
+	},
+	"item": [
+		{
+			"name": "Agregar un socio a un club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/clubes/{{clubId}}/socios/{{socioId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"{{clubId}}",
+						"socios",
+						"{{socioId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar socio a club que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/09cd37cc-0249-4c17-a4cc-91b65850eb95/socios/{{socioId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"09cd37cc-0249-4c17-a4cc-91b65850eb95",
+						"socios",
+						"{{socioId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los socios de un club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/{{clubId}}/socios",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"{{clubId}}",
+						"socios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un socio que pertenece a un club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/{{clubId}}/socios/f7471ee0-83cf-46bd-94dc-1fd799136cdc",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"{{clubId}}",
+						"socios",
+						"f7471ee0-83cf-46bd-94dc-1fd799136cdc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un socio que no es parte de un club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/clubes/{{clubId}}/socios/efd067d0-0336-4e70-b1a3-41a943e26cb0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"{{clubId}}",
+						"socios",
+						"efd067d0-0336-4e70-b1a3-41a943e26cb0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar los socios que pertenecen a un club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"nombre\": \"Wilmar nuevo\",\r\n   \"correo\": \"w@a.com\",\r\n   \"fechanacimiento\": \"22/08/1989\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/{{clubId}}/socios",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"{{clubId}}",
+						"socios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar los socios de un club con un socio que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"nombre\": \"Wilmar nuevo\",\r\n   \"correo\": \"w@a.com\",\r\n   \"fechanacimiento\": \"22/08/1989\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/{{clubId}}/socios/09cd37cc-0249-4c17-a4cc-91b65850eb95",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"{{clubId}}",
+						"socios",
+						"09cd37cc-0249-4c17-a4cc-91b65850eb95"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un socio que es parte de un club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/{{clubId}}/socios/f7471ee0-83cf-46bd-94dc-1fd799136cdc",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"{{clubId}}",
+						"socios",
+						"f7471ee0-83cf-46bd-94dc-1fd799136cdc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar socio que no es parte de un club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {\r",
+							"   pm.response.to.have.status(412);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/{{clubId}}/socios/efd067d0-0336-4e70-b1a3-41a943e26cb0",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"{{clubId}}",
+						"socios",
+						"efd067d0-0336-4e70-b1a3-41a943e26cb0"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://7a6d-181-139-212-183.ngrok.io/api/v1",
+			"type": "string"
+		}
+	]
+}
