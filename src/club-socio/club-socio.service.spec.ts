@@ -242,7 +242,7 @@ describe('ClubSocioService', () => {
       servicio.eliminarSocioClub('0', socio.id),
     ).rejects.toHaveProperty(
       'mensaje',
-      'club dado no fue encontrada.',
+      'Club dado no fue encontrada.',
     );
   });
 

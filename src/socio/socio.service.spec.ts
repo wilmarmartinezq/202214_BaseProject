@@ -37,26 +37,6 @@ describe('SocioService', () => {
     }
   };
 
-  it('crear debería retornar un nuevo socio', async () => {
-    const socio: SocioEntity = {
-      id: '',
-      nombre: faker.lorem.sentence(),
-      correo: faker.lorem.sentence(),
-      fechanacimiento: faker.lorem.sentence(),
-    };
-
-    const newSocio: SocioEntity = await service.create(socio);
-    expect(newSocio).not.toBeNull();
-
-    const storedSocio: SocioEntity = await repository.findOne({
-      where: { id: newSocio.id },
-    });
-    expect(storedSocio).not.toBeNull();
-    expect(storedSocio.nombre).toEqual(newSocio.nombre);
-    expect(storedSocio.correo).toEqual(newSocio.correo);
-    expect(storedSocio.fechanacimiento).toEqual(newSocio.fechanacimiento);
-
-  });
 
   it('Obtener todos debería retornar todos los socios', async () => {
     const socios: SocioEntity[] = await service.findAll();

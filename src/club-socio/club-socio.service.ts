@@ -141,7 +141,7 @@ export class ClubSocioService {
       });
     if (!club)
       throw new ExcepcionLogicaNegocio(
-        'Club dada no fue encontrada.',
+        'Club dado no fue encontrada.',
         ErrorNegocio.NO_ENCONTRADO,
       );
 
@@ -151,7 +151,7 @@ export class ClubSocioService {
 
     if (!clubSocio)
       throw new ExcepcionLogicaNegocio(
-        'Socio dado no esta asociado a Club dado.',
+        'Socio dado no esta asociado a club dado.',
         ErrorNegocio.PRECONDICION_FALLIDA,
       );
 

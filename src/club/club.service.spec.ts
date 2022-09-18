@@ -38,28 +38,6 @@ describe('ClubService', () => {
     }
   };
 
-  it('Crear debería retornar un nuevo club', async () => {
-    const club: ClubEntity = {
-      id: '',
-      nombre: faker.lorem.sentence(),
-      fecha: faker.lorem.sentence(),
-      imagen: faker.image.imageUrl(),
-      descripcion: faker.lorem.sentence(),
-    };
-
-    const newClub: ClubEntity = await service.create(club);
-    expect(newClub).not.toBeNull();
-
-    const storedClub: ClubEntity = await repository.findOne({
-      where: { id: newClub.id },
-    });
-    expect(storedClub).not.toBeNull();
-    expect(storedClub.nombre).toEqual(newClub.nombre);
-    expect(storedClub.fecha).toEqual(newClub.fecha);
-    expect(storedClub.imagen).toEqual(newClub.imagen);
-    expect(storedClub.descripcion).toEqual(newClub.descripcion);
-  });
-
   it('Obtener todos debería retornar todos los clubes', async () => {
     const clubes: ClubEntity[] = await service.findAll();
     expect(clubes).not.toBeNull();
