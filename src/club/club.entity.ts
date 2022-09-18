@@ -18,11 +18,16 @@ export class ClubEntity {
   nombre: string;
 
   @Column()
-  fecha: string;
+  fecha: Date;
 
   @Column()
   imagen: string;
 
   @Column()
   descripcion: string;
+
+  @ManyToMany(() => SocioEntity, socio => socio.clubes)
+  @JoinTable()
+  socios: SocioEntity[];
+
 }

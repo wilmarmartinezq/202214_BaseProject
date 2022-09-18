@@ -1,4 +1,5 @@
-import {IsNotEmpty, IsString, IsUrl} from 'class-validator';
+import {IsEmail, IsDate, Max, IsNotEmpty, IsUrl, IsString} from 'class-validator';
+
 
 export class ClubDto {
 
@@ -6,15 +7,16 @@ export class ClubDto {
     @IsNotEmpty()
     readonly nombre: string;
     
-    @IsString()
+    @IsDate()
     @IsNotEmpty()
-    readonly fecha: string;
+    readonly fecha: Date;
     
     @IsUrl()
     @IsNotEmpty()
     readonly imagen: string;
     
     @IsString()
+    @Max(100)
     @IsNotEmpty()
     readonly descripcion: string;
     

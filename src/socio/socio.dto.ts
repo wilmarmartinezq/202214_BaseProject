@@ -1,4 +1,4 @@
-import {IsNotEmpty, IsString} from 'class-validator';
+import {IsEmail, IsDate, Max, IsNotEmpty, IsString} from 'class-validator';
 
 export class SocioDto {
 
@@ -6,12 +6,12 @@ export class SocioDto {
     @IsNotEmpty()
     readonly nombre: string;
 
-    @IsString()
+    @IsEmail()
     @IsNotEmpty()
     readonly correo: string;
 
-    @IsString()
+    @IsDate()
     @IsNotEmpty()
-    readonly fechanacimiento: string;
+    readonly fechanacimiento: Date;
     
 }

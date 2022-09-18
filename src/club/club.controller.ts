@@ -18,7 +18,7 @@ import { ClubService } from './club.service';
 @Controller('clubes')
 @UseInterceptors(ErroresNegocioInterceptor)
 export class ClubController {
-  constructor(private readonly recetaService: ClubService) {}
+  constructor(private readonly clubService: ClubService) {}
 
   @Get()
   async findAll() {
