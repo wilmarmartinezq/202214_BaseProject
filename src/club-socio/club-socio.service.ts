@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SocioEntity } from '../socio/socio.entity';
 import {
   ErrorNegocio,
   ExcepcionLogicaNegocio,
 } from '../compartido/errores-negocio';
 import { ClubEntity } from '../club/club.entity';
+import { SocioEntity } from '../socio/socio.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -27,17 +27,18 @@ export class ClubSocioService {
     });
     if (!socio)
       throw new ExcepcionLogicaNegocio(
-        'Socio dado no fue encontrada.',
+        'socio dado no fue encontrado.',
         ErrorNegocio.NO_ENCONTRADO,
       );
 
-    const club: ClubEntity = await this.repositorioClub.findOne({
-      where: { id: clubId },
-      relations: ['clubes'],
-    });
+    const club: ClubEntity =
+      await this.repositorioClub.findOne({
+        where: { id: clubId },
+        relations: ['socios'],
+      });
     if (!club)
       throw new ExcepcionLogicaNegocio(
-        'Club dado no fue encontrado.',
+        'Club dado no fue encontrada.',
         ErrorNegocio.NO_ENCONTRADO,
       );
 
@@ -45,39 +46,50 @@ export class ClubSocioService {
     return await this.repositorioClub.save(club);
   }
 
-  async obtenerSocioClub(
+  async obtenerSocioporClub(
     clubId: string,
     socioId: string,
   ): Promise<SocioEntity> {
-    return <SocioEntity>(await this.__obtenerSocioClub(clubId, socioId))[1];
+    return <SocioEntity>(
+      (
+        await this.__obtenerSocioporClub(
+          clubId,
+          socioId,
+        )
+      )[1]
+    );
   }
 
-  async obtenerTodosSociosClub(clubId: string): Promise<SocioEntity[]> {
-    const club: ClubEntity = await this.repositorioClub.findOne({
-      where: { id: clubId },
-      relations: ['Socios'],
-    });
+  async obtenerTodosSociosporClub(
+    clubId: string,
+  ): Promise<SocioEntity[]> {
+    const club: ClubEntity =
+      await this.repositorioClub.findOne({
+        where: { id: clubId },
+        relations: ['socios'],
+      });
     if (!club)
       throw new ExcepcionLogicaNegocio(
-        'Club dado no fue encontrado.',
+        'Club dado no fue encontrada.',
         ErrorNegocio.NO_ENCONTRADO,
       );
 
     return club.socios;
   }
 
-  async asociarSociosClub(
+  async asociarSocioClub(
     clubId: string,
     socios: SocioEntity[],
   ): Promise<ClubEntity> {
-    const club: ClubEntity = await this.repositorioClub.findOne({
-      where: { id: clubId },
-      relations: ['socios'],
-    });
+    const club: ClubEntity =
+      await this.repositorioClub.findOne({
+        where: { id: clubId },
+        relations: ['socios'],
+      });
 
     if (!club)
       throw new ExcepcionLogicaNegocio(
-        'Club dado no fue encontrado.',
+        'Club dado no fue encontrada.',
         ErrorNegocio.NO_ENCONTRADO,
       );
 
@@ -87,7 +99,7 @@ export class ClubSocioService {
       });
       if (!socio)
         throw new ExcepcionLogicaNegocio(
-          'Socio dado no fue encontrada.',
+          'socio dado no fue encontrado.',
           ErrorNegocio.NO_ENCONTRADO,
         );
     }
@@ -98,30 +110,38 @@ export class ClubSocioService {
 
   async eliminarSocioClub(clubId: string, socioId: string) {
     const club = <ClubEntity>(
-      (await this.__obtenerSocioClub(clubId, socioId))[0]
+      (
+        await this.__obtenerSocioporClub(
+          clubId,
+          socioId,
+        )
+      )[0]
     );
-
     club.socios = club.socios.filter((e) => e.id !== socioId);
     await this.repositorioClub.save(club);
   }
 
-  async __obtenerSocioClub(clubId: string, socioId: string) {
+  async __obtenerSocioporClub(
+    clubId: string,
+    socioId: string,
+  ) {
     const socio: SocioEntity = await this.repositorioSocio.findOne({
       where: { id: socioId },
     });
     if (!socio)
       throw new ExcepcionLogicaNegocio(
-        'Socio dado no fue encontrada.',
+        'socio dado no fue encontrado.',
         ErrorNegocio.NO_ENCONTRADO,
       );
 
-    const club: ClubEntity = await this.repositorioClub.findOne({
-      where: { id: clubId },
-      relations: ['socios'],
-    });
+    const club: ClubEntity =
+      await this.repositorioClub.findOne({
+        where: { id: clubId },
+        relations: ['socios'],
+      });
     if (!club)
       throw new ExcepcionLogicaNegocio(
-        'Club dado no fue encontrado.',
+        'Club dada no fue encontrada.',
         ErrorNegocio.NO_ENCONTRADO,
       );
 
@@ -131,9 +151,10 @@ export class ClubSocioService {
 
     if (!clubSocio)
       throw new ExcepcionLogicaNegocio(
-        'Socio dado no se encuentra asociado a club dado.',
+        'Socio dado no esta asociado a Club dado.',
         ErrorNegocio.PRECONDICION_FALLIDA,
       );
+
     return [club, clubSocio];
   }
 }

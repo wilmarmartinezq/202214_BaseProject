@@ -1,6 +1,6 @@
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ClubEntity } from '../../club/club.entity';
 import { SocioEntity } from '../../socio/socio.entity';
+import { ClubEntity } from '../../club/club.entity';
 
 
 export const TypeOrmConfiguracionPruebas = () => [
@@ -8,10 +8,9 @@ export const TypeOrmConfiguracionPruebas = () => [
     type: 'sqlite',
     database: ':memory:',
     dropSchema: true,
-    entities: [ClubEntity,SocioEntity],
+    entities: [SocioEntity,ClubEntity],
     synchronize: true,
     keepConnectionAlive: true,
   }),
-  
-  TypeOrmModule.forFeature([ClubEntity,SocioEntity]),
+  TypeOrmModule.forFeature([SocioEntity,ClubEntity]),
 ];

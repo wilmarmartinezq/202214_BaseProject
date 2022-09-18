@@ -1,0 +1,412 @@
+{
+	"info": {
+		"_postman_id": "e2200c7d-1d86-48ab-bef4-672a71be4a3c",
+		"name": "Club",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15550887"
+	},
+	"item": [
+		{
+			"name": "Crear un club válido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json()\r",
+							"pm.globals.set(\"clubId\", data.id);\r",
+							"\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"   pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"nombre\": \"Club 1\",\r\n   \"fecha\": \"18/09/2022\",\r\n   \"imagen\": \"image.jpg\",\r\n   \"descripcion\": \"Club deportivo de golf\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un club no válido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"   pm.response.to.have.status(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"fecha\": \"18/09/2022\",\r\n   \"imagen\": \"image.jpg\",\r\n   \"descripcion\": \"Club deportivo de golf\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los clubes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('Numero de clubes > ' + 0, function () {\r",
+							"   var data = pm.response.json()\r",
+							"   pm.expect(data.length).to.greaterThan(0)\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un club por id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/{{clubId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"{{clubId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un club por id que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/09cd37cc-0249-4c17-a4cc-91b65850eb95",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"09cd37cc-0249-4c17-a4cc-91b65850eb95"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un club",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"   pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"nombre\": \"Club 1 nuevo\",\r\n   \"fecha\": \"18/09/2022\",\r\n   \"imagen\": \"image.jpg\",\r\n   \"descripcion\": \"Club deportivo de golf\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/{{clubId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"{{clubId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar club con id que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"nombre\": \"Club 1 nuevo\",\r\n   \"fecha\": \"18/09/2022\",\r\n   \"imagen\": \"image.jpg\",\r\n   \"descripcion\": \"Club deportivo de golf\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/09cd37cc-0249-4c17-a4cc-91b65850eb95",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"09cd37cc-0249-4c17-a4cc-91b65850eb95"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un club por su id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"   pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/{{clubId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"{{clubId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un club con id que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"   pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/clubes/09cd37cc-0249-4c17-a4cc-91b65850eb95",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"clubes",
+						"09cd37cc-0249-4c17-a4cc-91b65850eb95"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://9adf-181-139-212-183.ngrok.io/api/v1",
+			"type": "string"
+		}
+	]
+}

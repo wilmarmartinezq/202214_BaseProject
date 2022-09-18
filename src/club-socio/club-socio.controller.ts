@@ -1,52 +1,50 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Param,
-  Post,
-  Put,
-  UseInterceptors,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { SocioEntity } from '../socio/socio.entity';
 import { SocioService } from '../socio/socio.service';
-import { ErroresNegocioInterceptor } from 'src/compartido/interceptores/errores-negocio.interceptor';
+import { ErroresNegocioInterceptor } from '../compartido/interceptores/errores-negocio.interceptor';
 import { ClubSocioService } from './club-socio.service';
 
-@Controller('clubes')
 @UseInterceptors(ErroresNegocioInterceptor)
+@Controller('clubes')
 export class ClubSocioController {
   constructor(
     private readonly servicioClubSocio: ClubSocioService,
     private readonly servicioSocio: SocioService,
   ) {}
 
-  @Post(':clubId/socios/:socioId')
+  @Post(':clubId/socios/:clubId')
   async agregarSocioClub(
     @Param('clubId') clubId: string,
     @Param('socioId') socioId: string,
   ) {
-    return await this.servicioClubSocio.agregarSocioClub(clubId, socioId);
+    return await this.servicioClubSocio.agregarSocioClub(
+      clubId,
+      socioId,
+    );
   }
 
   @Get(':clubId/socios/:socioId')
-  async obtenerRecetaSocioClub(
+  async obtenerSocioClub(
     @Param('clubId') clubId: string,
     @Param('socioId') socioId: string,
   ) {
-    return await this.servicioClubSocio.obtenerSocioClub(clubId, socioId);
+    return await this.servicioClubSocio.obtenerSocioporClub(
+      clubId,
+      socioId,
+    );
   }
 
   @Get(':clubId/socios')
-  async obtenerTodosSociosClub(
+  async obtenerTodosSociosDeClub(
     @Param('clubId') clubId: string,
   ) {
-    return await this.servicioClubSocio.obtenerTodosSociosClub(clubId);
+    return await this.servicioClubSocio.obtenerTodosSociosporClub(
+      clubId,
+    );
   }
 
   @Put(':clubId/socios')
-  async associateSociosClub(
+  async associateSocioClub(
     @Body() sociosIds: string[],
     @Param('clubId') clubId: string,
   ) {
@@ -56,7 +54,7 @@ export class ClubSocioController {
       socios.push(socio);
     }
 
-    return await this.servicioClubSocio.asociarSociosClub(
+    return await this.servicioClubSocio.asociarSocioClub(
       clubId,
       socios,
     );
@@ -64,10 +62,13 @@ export class ClubSocioController {
 
   @Delete(':clubId/socios/:socioId')
   @HttpCode(204)
-  async deleteSociosClub(
+  async deleteSocioClub(
     @Param('clubId') clubId: string,
     @Param('socioId') socioId: string,
   ) {
-    return await this.servicioClubSocio.eliminarSocioClub(clubId, socioId);
+    return await this.servicioClubSocio.eliminarSocioClub(
+      clubId,
+      socioId,
+    );
   }
 }

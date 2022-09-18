@@ -31,7 +31,7 @@ describe('SocioService', () => {
       const socio: SocioEntity = await repository.save({
         nombre: faker.lorem.sentence(),
         correo: faker.lorem.sentence(),
-        fechanacimiento: faker.date.betweens('2020-01-01T00:00:00.000Z', '2030-01-01T00:00:00.000Z', 1),
+        fechanacimiento: faker.lorem.sentence(),
       });
       sociosList.push(socio);
     }
@@ -42,7 +42,7 @@ describe('SocioService', () => {
       id: '',
       nombre: faker.lorem.sentence(),
       correo: faker.lorem.sentence(),
-      fechanacimiento: faker.date.betweens('2020-01-01T00:00:00.000Z', '2030-01-01T00:00:00.000Z', 2),
+      fechanacimiento: faker.lorem.sentence(),
     };
 
     const newSocio: SocioEntity = await service.create(socio);
